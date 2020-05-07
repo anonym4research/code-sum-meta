@@ -1,0 +1,145 @@
+##################### default args #####################
+common:
+  thread_num: 1 # load and process data with multi-process
+  seed: 666 # init seed for numpy/torch/random/scipy and so on
+  device: 0 # GPU device. if None, as CPU
+
+  init_weights: ~
+
+  init_bound: 1e-1
+  init_normal_std: 1e-4
+  result_table_format: 'github' # latex (https://pypi.org/project/tabulate/)
+
+dataset:
+  dataset_dir: 'C:\\Users\\GS65_2070mq\\Documents\\GitHub\\FSE2020-XMetaL\\dataset\\demo'
+  # save your model and eval files
+  save_dir: 'C:\\Users\\GS65_2070mq\\Documents\\GitHub\\FSE2020-XMetaL\\save'
+  ##################### dataset and other args #####################
+
+
+  tree_leaf_subtoken: True
+
+
+  portion: ~ # only for evaluate meta-learner, using part data is quick
+  leaf_path_k: 30
+
+  source:
+    dataset_lng:
+      - 'python'
+      - 'javascript'
+      - 'php'
+      - 'java'
+      - 'go'
+
+    mode:
+      - 'train'
+      - 'valid'
+
+  target:
+    dataset_lng:
+      - 'ruby'
+
+    mode:
+      - 'train'
+      - 'valid'
+      - 'test'
+
+
+training:
+  ##################### model args #####################
+
+
+  code_modalities:
+    - tok
+    - path
+
+  train_epoch: 50
+  batch_size: 128
+  log_interval: 5 # write log info per log_interval iteration
+
+  # network: encoder
+  rnn_type: 'LSTM'
+  rnn_layer_num: 1 # RNN layer num
+  rnn_hidden_size: 512 # RNN hidden size
+  rnn_bidirectional: True
+
+  embed_size: 300 # word-embedding size
+  embed_pooling: ~
+
+  tree_lstm_cell_type: 'nary' # DGL tree LSTM cell, if nary -> TreeLSTMCell, else    -> ChildSumTreeLSTMCell
+  code_modal_transform: True # code modalities transform with FCs
+  conv2d_out_channels: 512
+  conv2d_kernels:
+    - 2
+    - 3
+    - 4
+    - 5
+
+
+  enc_hc2dec_hc: 'h'
+
+  # network: decoder
+  attn_type: 'dot' # ~,
+  attn_unit: 512
+  self_attn_size: 50
+
+  pointer: True # pointer-generator
+  max_predict_length: 65 # max generation length for decoder
+  dropout: 0.2 # dropout
+
+
+
+# inference
+testing:
+
+  max_predict_length: ~ # max generation length for decoder
+
+  metrics:
+    - 'bleu'
+    # meteor and rouge is time-consuming
+    #    - 'meteor'
+    #    - 'rouge'
+    - 'cider'
+
+# supervised learning
+sl:
+  optim: 'Adam'
+  lr: 4e-4
+
+  lr_gamma: 0.5
+  lr_milestones: # epochs when lr => lr * lr_gamma
+    - 5
+    - 50
+
+  warmup_factor: 0.2
+  warmup_epochs: 1
+
+  max_grad_norm: -1 # -1: no gradient clips  1.0
+
+sc:
+  optim: 'Adam'
+  lr: 1e-4
+  reward_func: 'bleu'
+
+  lr_gamma: 0.1 # 0.1
+  lr_milestones: # epochs when lr => lr * lr_gamma
+    - 20
+    - 40
+  warmup_factor: 0.2
+  warmup_epochs: 1
+
+  max_grad_norm: -1 # -1: no gradient clips  1.0
+
+  rl_weight: 1.0
+
+
+# meta learning
+maml:
+  #  meta_optim: 'Adam' # meta-optimizer
+  meta_optim: 'SGD' # meta-optimizer
+  meta_lr: 1e-3 # meta-learning rate
+
+  meta_train_size: -1 # -1: all dataset for meta-train
+  meta_val_size: -1
+
+  mini_finetune_epoch: 10
