@@ -1,4 +1,4 @@
-# ASE2020-[code-sum-meta]-demo
+# ASE2020-[code-sum-meta]
 
 This repos. archives the source code and dataset for our code-sum-meta, which has been submitted to ASE'20 for review.
 
