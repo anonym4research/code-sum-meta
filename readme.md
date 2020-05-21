@@ -74,6 +74,10 @@ args = Argues('./ruby/tok8path-p1.0.yml', 'summarization', 'xlang', 'maml', 'tra
 args = Argues('./ruby/tok8path-p1.0.yml', 'summarization', 'xlang', 'maml', 'test', 'target', )
 ```
 
+## Human Evaluation Page
+
+![alt text](./human_evaluation.png "Human evaluation page")
+
 
 ## Notes
 This repos. is only for review, please don't distribute it. Thanks.
