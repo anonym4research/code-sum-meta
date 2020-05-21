@@ -7,15 +7,6 @@ This repos. archives the source code and dataset for our code-sum-meta, which ha
 ## Dataset
 Here, we only release 1,000 data examples of each language for review. We'll release the whole dataset as our paper is accepted.
 
-| language | train | valid | test |
-| :------ | :------: | :------: | :------: |
-| python | 1000 | 200 | 500 |
-| java | 1000 | 200 | 500 |
-| go | 1000 | 200 | 500 |
-| php | 1000 | 200 | 500 |
-| ruby | 1000 | 200 | 500 |
-| javascript | 1000 | 200 | 500 |
-
 ### A python example
 code:
 ```
